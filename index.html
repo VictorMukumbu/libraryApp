@@ -11,6 +11,38 @@
   <h1>My Library</h1>
   <div id="library"></div>
 
+  <!-- A modal dialog containing a form -->
+  <dialog id="bookDialog">
+    <form>
+      <div>
+        <p>Please Enter Your book details Below</p>
+        <div>
+          <label for="title" name="title" id="bookTitle">Book Title</label>
+          <input type="text" id="bookTitle" placeholder="Enter book title">
+        </div>
+        <div>
+          <label for="author" name="author" id="bookAuthor">Book Author</label>
+          <input type="text" id="bookAuthor" placeholder="Enter book author">
+        </div>
+        <div>
+          <label for="pages" name="pages" id="bookPages">Book Pages</label>
+          <input type="number" id="bookPages" placeholder="Enter book pages">
+        </div>
+      </div>
+      
+      
+      <div>
+        <button value="cancel" formmethod="dialog">Cancel</button>
+        <button id="confirmBtn" value="default">Confirm</button>
+      </div>
+    </form>
+  </dialog>
+  <p>
+    <button id="newBook">New Book</button>
+  </p>
+  <!-- modal end -->
+
+
   <script src="script.js"></script> <!-- Link to external JS -->
 </body>
 </html>

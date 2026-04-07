@@ -1,5 +1,10 @@
 //array to store books
 let booksArray = []
+
+const newBookButton = document.getElementById("newBook");
+const bookDialog = document.getElementById("bookDialog");
+const confirmBtn = bookDialog.querySelector("#confirmBtn");
+
 //books constructor
 function Book(author,title,pages,id){
   this.author=author;
@@ -35,3 +40,9 @@ for(let i=0;i<booksArray.length;i++){
   //append bookcards to librayWrapper
   libraryWrapper.appendChild(bookCard)
 }
+
+//“New Book” button that brings up a form allowing users to 
+// input the details for the new book and add it to the library
+newBookButton.addEventListener("click",()=>{
+  bookDialog.showModal()
+});
