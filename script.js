@@ -106,7 +106,7 @@ function displayBooks() {
 // =======================
 // Initial Books
 // =======================
-createBook("Victor Mukumbu", "Successful Developer", "10", true);
+createBook("Victor Mukumbu", "Successful Developer", "150", true);
 createBook("Mary Joseph", "Future of Engineering", "100", false);
 displayBooks();
 
@@ -115,6 +115,13 @@ displayBooks();
 // =======================
 newBookButton.addEventListener("click", () => {
   bookDialog.showModal();
+});
+
+// cancel button closes modal
+const cancelBtn = document.getElementById("cancelBtn");
+
+cancelBtn.addEventListener("click", () => {
+  bookDialog.close();
 });
 
 // =======================

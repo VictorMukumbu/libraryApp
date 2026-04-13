@@ -152,6 +152,7 @@ dialog {
   padding: 20px;
   width: min(90%, 400px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  justify-self: center;
 }
 
 dialog input {
@@ -165,6 +166,8 @@ dialog input {
 dialog button {
   margin-top: 10px;
 }
+
+
 
 /* =========================
    MOBILE RESPONSIVE
