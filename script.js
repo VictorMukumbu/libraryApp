@@ -7,7 +7,7 @@ const confirmBtn = document.getElementById("confirmBtn");
 const libraryWrapper = document.getElementById("library");
 
 // Book constructor
-function Book(author, title, pages, id) {
+function Book(author, title, pages) {
   this.author = author;
   this.title = title;
   this.pages = pages;
@@ -32,6 +32,17 @@ function displayBooks() {
       <p> Pages: ${booksArray[i].pages}</p>
       <p> Id: ${booksArray[i].id}</p>
     `;
+    //add remove book button
+    const removeButton = document.createElement("button")
+    removeButton.textContent="Remove Book"
+    removeButton.classList.add="removeButton"
+    //and removeButton event listener
+    removeButton.addEventListener("click",()=>{
+      booksArray.splice(i,1);//remove from array
+      displayBooks()//re-render
+    })
+
+    bookCard.appendChild(removeButton)
     libraryWrapper.appendChild(bookCard);
   }
 }
@@ -60,6 +71,7 @@ confirmBtn.addEventListener("click", (e) => {
     createBook(author, title, pages); // Add the new book
     displayBooks(); // Refresh the displayed book list
     bookDialog.close(); // Close the dialog
+    
   } else {
     alert("Please input book details");
   }
