@@ -1,77 +1,136 @@
+// =======================
 // Array to store books
-let booksArray = []
+// =======================
+let booksArray = [];
 
+// =======================
+// DOM Elements
+// =======================
 const newBookButton = document.getElementById("newBook");
 const bookDialog = document.getElementById("bookDialog");
 const confirmBtn = document.getElementById("confirmBtn");
 const libraryWrapper = document.getElementById("library");
 
-// Book constructor
-function Book(author, title, pages) {
+// =======================
+// Book Constructor
+// =======================
+function Book(author, title, pages, read = false) {
   this.author = author;
   this.title = title;
   this.pages = pages;
+  this.read = read;
   this.id = crypto.randomUUID();
 }
 
-// Function to create a new book and store it in the array
-function createBook(author, title, pages) {
-  const book = new Book(author, title, pages);
+// =======================
+// Prototype Method
+// =======================
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+};
+
+// =======================
+// Create Book
+// =======================
+function createBook(author, title, pages, read = false) {
+  const book = new Book(author, title, pages, read);
   booksArray.push(book);
 }
 
-// Function to display all books on the page
+// =======================
+// Display Books
+// =======================
 function displayBooks() {
-  libraryWrapper.innerHTML = ''; // Clear the library display first
-  for (let i = 0; i < booksArray.length; i++) {
-    let bookCard = document.createElement("div");
-    bookCard.id = "card";
-    bookCard.innerHTML = `
-      <h3>${booksArray[i].title}</h3>
-      <p> Author: ${booksArray[i].author}</p>
-      <p> Pages: ${booksArray[i].pages}</p>
-      <p> Id: ${booksArray[i].id}</p>
-    `;
-    //add remove book button
-    const removeButton = document.createElement("button")
-    removeButton.textContent="Remove Book"
-    removeButton.classList.add="removeButton"
-    //and removeButton event listener
-    removeButton.addEventListener("click",()=>{
-      booksArray.splice(i,1);//remove from array
-      displayBooks()//re-render
-    })
+  libraryWrapper.innerHTML = "";
 
-    bookCard.appendChild(removeButton)
+  for (let i = 0; i < booksArray.length; i++) {
+    const book = booksArray[i];
+
+    // CARD
+    const bookCard = document.createElement("div");
+    bookCard.classList.add("card");
+
+    // conditional styling
+    bookCard.classList.add(book.read ? "read" : "not-read");
+
+    // CONTENT
+    const contentDiv = document.createElement("div");
+    contentDiv.classList.add("card-content");
+
+    contentDiv.innerHTML = `
+      <h3>${book.title}</h3>
+      <p>Author: ${book.author}</p>
+      <p>Pages: ${book.pages}</p>
+      <p>Status: ${book.read ? "Read" : "Not Read"}</p>
+      <p>ID: ${book.id}</p>
+    `;
+
+    // ACTIONS
+    const actionsDiv = document.createElement("div");
+    actionsDiv.classList.add("card-actions");
+
+    // TOGGLE READ BUTTON
+    const readStatusButton = document.createElement("button");
+    readStatusButton.classList.add("toggleButton");
+    readStatusButton.textContent = book.read
+      ? "Mark as Unread"
+      : "Mark as Read";
+
+    readStatusButton.addEventListener("click", () => {
+      book.toggleRead();
+      displayBooks();
+    });
+
+    // REMOVE BUTTON
+    const removeButton = document.createElement("button");
+    removeButton.classList.add("removeButton");
+    removeButton.textContent = "Remove Book";
+
+    removeButton.addEventListener("click", () => {
+      booksArray.splice(i, 1);
+      displayBooks();
+    });
+
+    // APPEND ACTIONS
+    actionsDiv.appendChild(readStatusButton);
+    actionsDiv.appendChild(removeButton);
+
+    // BUILD CARD
+    bookCard.appendChild(contentDiv);
+    bookCard.appendChild(actionsDiv);
+
     libraryWrapper.appendChild(bookCard);
   }
 }
 
-// Create initial books (for testing purposes)
-createBook("John", "success", "10");
-createBook("Mary", "fail", "100");
+// =======================
+// Initial Books
+// =======================
+createBook("Victor Mukumbu", "Successful Developer", "10", true);
+createBook("Mary Joseph", "Future of Engineering", "100", false);
 displayBooks();
 
-// "New Book" button to bring up the form allowing users to input book details
+// =======================
+// Open Dialog
+// =======================
 newBookButton.addEventListener("click", () => {
   bookDialog.showModal();
 });
 
-// Confirm button to add the book
+// =======================
+// Add New Book
+// =======================
 confirmBtn.addEventListener("click", (e) => {
-  e.preventDefault(); // Prevent form submission
+  e.preventDefault();
 
-  // Get values from the input fields
   const author = document.getElementById("bookAuthor").value;
   const title = document.getElementById("bookTitle").value;
   const pages = document.getElementById("bookPages").value;
 
-  // Validate inputs and create a new book if all fields are filled
   if (title && author && pages) {
-    createBook(author, title, pages); // Add the new book
-    displayBooks(); // Refresh the displayed book list
-    bookDialog.close(); // Close the dialog
-    
+    createBook(author, title, pages, false);
+    displayBooks();
+    bookDialog.close();
   } else {
     alert("Please input book details");
   }
