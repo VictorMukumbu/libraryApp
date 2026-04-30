@@ -12,14 +12,85 @@ const confirmBtn = document.getElementById("confirmBtn");
 const libraryWrapper = document.getElementById("library");
 
 // =======================
-// Book Constructor
+// Book Class
 // =======================
-function Book(author, title, pages, read = false) {
-  this.author = author;
-  this.title = title;
-  this.pages = pages;
-  this.read = read;
-  this.id = crypto.randomUUID();
+class Book {
+
+  constructor(author, title, pages, read = false){
+    this.author = author;
+    this.title = title;
+    this.pages = pages;
+    this.read = read;
+    this.id = crypto.randomUUID();
+    }
+  
+  createBook(){
+    const book = new Book();
+    booksArray.push(book);
+    }
+
+    displayBooks() {
+      libraryWrapper.innerHTML = "";
+
+      for (let i = 0; i < booksArray.length; i++) {
+        const book = booksArray[i];
+
+        // CARD
+        const bookCard = document.createElement("div");
+        bookCard.classList.add("card");
+
+        // conditional styling
+        bookCard.classList.add(book.read ? "read" : "not-read");
+
+        // CONTENT
+        const contentDiv = document.createElement("div");
+        contentDiv.classList.add("card-content");
+
+        contentDiv.innerHTML = `
+          <h3>${book.title}</h3>
+          <p>Author: ${book.author}</p>
+          <p>Pages: ${book.pages}</p>
+          <p>Status: ${book.read ? "Read" : "Not Read"}</p>
+          <p>ID: ${book.id}</p>
+        `;
+
+        // ACTIONS
+        const actionsDiv = document.createElement("div");
+        actionsDiv.classList.add("card-actions");
+
+        // TOGGLE READ BUTTON
+        const readStatusButton = document.createElement("button");
+        readStatusButton.classList.add("toggleButton");
+        readStatusButton.textContent = book.read
+          ? "Mark as Unread"
+          : "Mark as Read";
+
+        readStatusButton.addEventListener("click", () => {
+          book.toggleRead();
+          displayBooks();
+        });
+
+        // REMOVE BUTTON
+        const removeButton = document.createElement("button");
+        removeButton.classList.add("removeButton");
+        removeButton.textContent = "Remove Book";
+
+        removeButton.addEventListener("click", () => {
+          booksArray.splice(i, 1);
+          displayBooks();
+        });
+
+        // APPEND ACTIONS
+        actionsDiv.appendChild(readStatusButton);
+        actionsDiv.appendChild(removeButton);
+
+        // BUILD CARD
+        bookCard.appendChild(contentDiv);
+        bookCard.appendChild(actionsDiv);
+
+        libraryWrapper.appendChild(bookCard);
+      }
+    }
 }
 
 // =======================
@@ -30,78 +101,9 @@ Book.prototype.toggleRead = function () {
 };
 
 // =======================
-// Create Book
-// =======================
-function createBook(author, title, pages, read = false) {
-  const book = new Book(author, title, pages, read);
-  booksArray.push(book);
-}
-
-// =======================
 // Display Books
 // =======================
-function displayBooks() {
-  libraryWrapper.innerHTML = "";
-
-  for (let i = 0; i < booksArray.length; i++) {
-    const book = booksArray[i];
-
-    // CARD
-    const bookCard = document.createElement("div");
-    bookCard.classList.add("card");
-
-    // conditional styling
-    bookCard.classList.add(book.read ? "read" : "not-read");
-
-    // CONTENT
-    const contentDiv = document.createElement("div");
-    contentDiv.classList.add("card-content");
-
-    contentDiv.innerHTML = `
-      <h3>${book.title}</h3>
-      <p>Author: ${book.author}</p>
-      <p>Pages: ${book.pages}</p>
-      <p>Status: ${book.read ? "Read" : "Not Read"}</p>
-      <p>ID: ${book.id}</p>
-    `;
-
-    // ACTIONS
-    const actionsDiv = document.createElement("div");
-    actionsDiv.classList.add("card-actions");
-
-    // TOGGLE READ BUTTON
-    const readStatusButton = document.createElement("button");
-    readStatusButton.classList.add("toggleButton");
-    readStatusButton.textContent = book.read
-      ? "Mark as Unread"
-      : "Mark as Read";
-
-    readStatusButton.addEventListener("click", () => {
-      book.toggleRead();
-      displayBooks();
-    });
-
-    // REMOVE BUTTON
-    const removeButton = document.createElement("button");
-    removeButton.classList.add("removeButton");
-    removeButton.textContent = "Remove Book";
-
-    removeButton.addEventListener("click", () => {
-      booksArray.splice(i, 1);
-      displayBooks();
-    });
-
-    // APPEND ACTIONS
-    actionsDiv.appendChild(readStatusButton);
-    actionsDiv.appendChild(removeButton);
-
-    // BUILD CARD
-    bookCard.appendChild(contentDiv);
-    bookCard.appendChild(actionsDiv);
-
-    libraryWrapper.appendChild(bookCard);
-  }
-}
+function 
 
 // =======================
 // Initial Books
