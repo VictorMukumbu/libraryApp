@@ -10,6 +10,7 @@ const newBookButton = document.getElementById("newBook");
 const bookDialog = document.getElementById("bookDialog");
 const confirmBtn = document.getElementById("confirmBtn");
 const libraryWrapper = document.getElementById("library");
+const cancelBtn = document.getElementById("cancelBtn");
 
 // =======================
 // Book Class
@@ -23,17 +24,29 @@ class Book {
     this.read = read;
     this.id = crypto.randomUUID();
     }
-  
-  createBook(){
-    const book = new Book();
-    booksArray.push(book);
+
+    toggleRead () {
+      this.read = !this.read;
     }
 
-    displayBooks() {
-      libraryWrapper.innerHTML = "";
+}
 
-      for (let i = 0; i < booksArray.length; i++) {
-        const book = booksArray[i];
+class Library{
+  constructor(booksArray,libraryWrapper){
+    this.booksArray =booksArray
+    this.libraryWrapper =libraryWrapper
+  }
+
+  createBook(author, title, pages, read = false) {
+    const book = new Book(author, title, pages, read);
+    this.booksArray.push(book);
+  }
+
+  displayBooks() {
+      this.libraryWrapper.innerHTML = "";
+
+      for (let i = 0; i < this.booksArray.length; i++) {
+        const book = this.booksArray[i];
 
         // CARD
         const bookCard = document.createElement("div");
@@ -67,7 +80,7 @@ class Book {
 
         readStatusButton.addEventListener("click", () => {
           book.toggleRead();
-          displayBooks();
+          this.displayBooks();
         });
 
         // REMOVE BUTTON
@@ -76,8 +89,8 @@ class Book {
         removeButton.textContent = "Remove Book";
 
         removeButton.addEventListener("click", () => {
-          booksArray.splice(i, 1);
-          displayBooks();
+          this.booksArray.splice(i, 1);
+          this.displayBooks();
         });
 
         // APPEND ACTIONS
@@ -88,29 +101,18 @@ class Book {
         bookCard.appendChild(contentDiv);
         bookCard.appendChild(actionsDiv);
 
-        libraryWrapper.appendChild(bookCard);
+        this.libraryWrapper.appendChild(bookCard);
       }
     }
 }
 
-// =======================
-// Prototype Method
-// =======================
-Book.prototype.toggleRead = function () {
-  this.read = !this.read;
-};
+// initialize library
+const library = new Library(booksArray,libraryWrapper)
 
-// =======================
-// Display Books
-// =======================
-function 
-
-// =======================
-// Initial Books
-// =======================
-createBook("Victor Mukumbu", "Successful Developer", "150", true);
-createBook("Mary Joseph", "Future of Engineering", "100", false);
-displayBooks();
+// initial books
+library.createBook("Victor Mukumbu", "Successful Developer", "150", true);
+library.createBook("Mary Joseph", "Future of Engineering", "100", false);
+library.displayBooks();
 
 // =======================
 // Open Dialog
@@ -119,8 +121,6 @@ newBookButton.addEventListener("click", () => {
   bookDialog.showModal();
 });
 
-// cancel button closes modal
-const cancelBtn = document.getElementById("cancelBtn");
 
 cancelBtn.addEventListener("click", () => {
   bookDialog.close();
@@ -137,10 +137,17 @@ confirmBtn.addEventListener("click", (e) => {
   const pages = document.getElementById("bookPages").value;
 
   if (title && author && pages) {
-    createBook(author, title, pages, false);
-    displayBooks();
+    library.createBook(author, title, pages, false);
+    library.displayBooks();
     bookDialog.close();
   } else {
     alert("Please input book details");
   }
 });
+
+// let book1 =new Book("Victor Mukumbu", "Successful Developer", "150", true);
+// console.log(book1.author)
+// let book2= new Book("Mary Joseph", "Future of Engineering", "100", false);
+// console.log(book2.pages)
+// console.log(booksArray)
+// displayBooks();
