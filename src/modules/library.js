@@ -27,9 +27,4 @@ function getBooks() {
   return books;
 }
 
-export {
-  addBook,
-  removeBook,
-  toggleBookRead,
-  getBooks,
-};
+export { addBook, removeBook, toggleBookRead, getBooks };

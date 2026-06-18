@@ -1,14 +1,13 @@
-export function  createBook(author, title, pages, read = false){
-   return {
+export function createBook(author, title, pages, read = false) {
+  return {
     author,
     title,
     pages,
     read,
-    id : crypto.randomUUID(),
-    
+    id: crypto.randomUUID(),
 
-    toggleRead () {
+    toggleRead() {
       this.read = !this.read;
     },
-};
+  };
 }

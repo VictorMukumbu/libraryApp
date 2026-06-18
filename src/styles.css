@@ -24,7 +24,7 @@ body {
   gap: 16px;
   margin-top: 20px;
 }
-#newBook{
+#newBook {
   margin-top: 16px;
 }
 /* h1{
@@ -42,7 +42,9 @@ body {
   border-radius: 14px;
   padding: 16px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   height: 100%;
 }
 
@@ -166,8 +168,6 @@ dialog input {
 dialog button {
   margin-top: 10px;
 }
-
-
 
 /* =========================
    MOBILE RESPONSIVE

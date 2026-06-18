@@ -1,8 +1,4 @@
-import {
-  getBooks,
-  removeBook,
-  toggleBookRead,
-} from "./library.js";
+import { getBooks, removeBook, toggleBookRead } from "./library.js";
 
 const libraryWrapper = document.getElementById("library");
 
@@ -28,9 +24,7 @@ function renderBooks() {
     actions.classList.add("card-actions");
 
     const toggleBtn = document.createElement("button");
-    toggleBtn.textContent = book.read
-      ? "Mark as Unread"
-      : "Mark as Read";
+    toggleBtn.textContent = book.read ? "Mark as Unread" : "Mark as Read";
 
     toggleBtn.addEventListener("click", () => {
       toggleBookRead(book.id);
