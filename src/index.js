@@ -16,19 +16,9 @@ const bookForm = document.getElementById("bookForm");
 
 setupValidation();
 
-addBook(
-  "Victor Mukumbu",
-  "Successful Developer",
-  "150",
-  true,
-);
+addBook("Victor Mukumbu", "Successful Developer", "150", true);
 
-addBook(
-  "Mary Joseph",
-  "Future of Engineering",
-  "100",
-  false,
-);
+addBook("Mary Joseph", "Future of Engineering", "100", false);
 
 renderBooks();
 
@@ -48,14 +38,11 @@ confirmBtn.addEventListener("click", (e) => {
     return;
   }
 
-  const author =
-    document.getElementById("bookAuthor").value;
+  const author = document.getElementById("bookAuthor").value;
 
-  const title =
-    document.getElementById("bookTitle").value;
+  const title = document.getElementById("bookTitle").value;
 
-  const pages =
-    document.getElementById("bookPages").value;
+  const pages = document.getElementById("bookPages").value;
 
   addBook(author, title, pages);
 

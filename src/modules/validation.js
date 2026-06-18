@@ -10,8 +10,7 @@ function validateTitle() {
   if (titleInput.validity.valueMissing) {
     titleError.textContent = "Please enter a book title.";
   } else if (titleInput.validity.tooShort) {
-    titleError.textContent =
-      "Book title must contain at least 2 characters.";
+    titleError.textContent = "Book title must contain at least 2 characters.";
   } else {
     titleError.textContent = "";
   }
@@ -19,11 +18,9 @@ function validateTitle() {
 
 function validateAuthor() {
   if (authorInput.validity.valueMissing) {
-    authorError.textContent =
-      "Please enter the author's name.";
+    authorError.textContent = "Please enter the author's name.";
   } else if (authorInput.validity.tooShort) {
-    authorError.textContent =
-      "Author name must contain at least 2 characters.";
+    authorError.textContent = "Author name must contain at least 2 characters.";
   } else {
     authorError.textContent = "";
   }
@@ -31,11 +28,9 @@ function validateAuthor() {
 
 function validatePages() {
   if (pagesInput.validity.valueMissing) {
-    pagesError.textContent =
-      "Please enter the number of pages.";
+    pagesError.textContent = "Please enter the number of pages.";
   } else if (pagesInput.validity.rangeUnderflow) {
-    pagesError.textContent =
-      "Pages must be greater than 0.";
+    pagesError.textContent = "Pages must be greater than 0.";
   } else {
     pagesError.textContent = "";
   }
