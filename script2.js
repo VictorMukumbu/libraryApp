@@ -1,7 +1,7 @@
 // =======================
 // Array to store books
 // =======================
-let booksArray = [];
+const booksArray = [];
 
 // =======================
 // DOM Elements

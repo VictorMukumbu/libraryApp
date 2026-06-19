@@ -1,5 +1,3 @@
-node_modules
-
 # Dependencies
 node_modules/
 
@@ -35,3 +33,4 @@ coverage/
 
 # ESLint cache
 .eslintcache
+node_modules

@@ -24,12 +24,10 @@ body {
   gap: 16px;
   margin-top: 20px;
 }
-#newBook{
+
+#newBook {
   margin-top: 16px;
 }
-/* h1{
-  text-align: center;
-} */
 
 /* =========================
    CARD BASE
@@ -42,7 +40,9 @@ body {
   border-radius: 14px;
   padding: 16px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   height: 100%;
 }
 
@@ -155,19 +155,64 @@ dialog {
   justify-self: center;
 }
 
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+dialog label {
+  display: block;
+  margin-bottom: 4px;
+  text-align: left;
+  font-weight: 600;
+}
+
 dialog input {
   width: 100%;
   padding: 8px;
-  margin: 8px 0;
+  margin: 4px 0;
   border: 1px solid #ccc;
   border-radius: 6px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+dialog input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
 }
 
 dialog button {
   margin-top: 10px;
 }
 
+/* =========================
+   VALIDATION
+========================= */
+.error {
+  display: block;
+  min-height: 1rem;
+  margin-top: 0.25rem;
 
+  color: #d93025;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+dialog input:not(:placeholder-shown):invalid {
+  border: 2px solid #d93025;
+}
+
+dialog input:not(:placeholder-shown):valid {
+  border: 2px solid #34a853;
+}
 
 /* =========================
    MOBILE RESPONSIVE
@@ -188,5 +233,10 @@ dialog button {
   button {
     width: 100%;
     min-width: unset;
+  }
+
+  dialog {
+    width: 95%;
+    padding: 16px;
   }
 }
